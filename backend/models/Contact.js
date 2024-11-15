@@ -2,8 +2,8 @@
 const db = require('../config/db');
 
 const createContact = (contact) => {
-  const query = `INSERT INTO contacts (firstName, lastName, email, phoneNumber, company, jobTitle) 
-                 VALUES ('${contact.firstName}', '${contact.lastName}', '${contact.email}', '${contact.phoneNumber}', '${contact.company}', '${contact.jobTitle}')`;
+  const query = `INSERT INTO contacts (first_name, last_name, email, phoneNumber, company, jobTitle) 
+                 VALUES ('${contact.first_name}', '${contact.last_name}', '${contact.email}', '${contact.phoneNumber}', '${contact.company}', '${contact.jobTitle}')`;
   return db.promise().query(query);
 };
 
@@ -16,7 +16,7 @@ const getContactById = (id) => {
 };
 
 const updateContact = (id, contact) => {
-  const query = `UPDATE contacts SET firstName = '${contact.firstName}', lastName = '${contact.lastName}', 
+  const query = `UPDATE contacts SET first_name = '${contact.first_name}', last_name = '${contact.last_name}', 
                  email = '${contact.email}', phoneNumber = '${contact.phoneNumber}', company = '${contact.company}', 
                  jobTitle = '${contact.jobTitle}' WHERE id = ?`;
   return db.promise().query(query, [id]);
