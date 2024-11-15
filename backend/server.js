@@ -19,6 +19,10 @@ app.use(express.json()); // To parse JSON request bodies
 
 // Routes
 app.use('/api/contacts', contactRoutes);
+app.get('/api/contacts', (_req, res) => {
+  res.json({ message: 'Contacts fetched successfully' });
+});
+
 
 // Set up the server
 const PORT = process.env.PORT || 5000;
