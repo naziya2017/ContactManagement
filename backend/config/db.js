@@ -6,7 +6,7 @@ const connectDB = () => {
     host: 'localhost',
     user: 'root',
     password: 'Naz@1705',
-    database: 'contact_management'
+    database: 'contact_db'
   });
 
   connection.connect((err) => {
