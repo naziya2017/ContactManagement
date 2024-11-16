@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
+import { TextField, Button } from "@mui/material";
 
 const ContactForm = ({ onSave, contact }) => {
   const [formData, setFormData] = useState({
     id: "",
-    first_name: "",
-    last_name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
   });
 
-  // Update form fields when editing a contact
   useEffect(() => {
     if (contact) {
       setFormData(contact);
@@ -24,45 +24,57 @@ const ContactForm = ({ onSave, contact }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData); // Save contact (add or update)
-    setFormData({ id: "", first_name: "", last_name: "", email: "", phone: "" }); // Clear form
+    onSave(formData);
+    setFormData({ id: "", firstName: "", lastName: "", email: "", phone: "" });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="first_name"
-        placeholder="First Name"
-        value={formData.first_name}
+    <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
+      <TextField
+        label="First Name"
+        name="firstName"
+        value={formData.firstName}
         onChange={handleChange}
         required
+        fullWidth
+        margin="normal"
       />
-      <input
-        type="text"
-        name="last_name"
-        placeholder="Last Name"
-        value={formData.last_name}
+      <TextField
+        label="Last Name"
+        name="lastName"
+        value={formData.lastName}
         onChange={handleChange}
         required
+        fullWidth
+        margin="normal"
       />
-      <input
-        type="email"
+      <TextField
+        label="Email"
         name="email"
-        placeholder="Email"
+        type="email"
         value={formData.email}
         onChange={handleChange}
         required
+        fullWidth
+        margin="normal"
       />
-      <input
-        type="text"
+      <TextField
+        label="Phone"
         name="phone"
-        placeholder="Phone"
         value={formData.phone}
         onChange={handleChange}
         required
+        fullWidth
+        margin="normal"
       />
-      <button type="submit">{formData.id ? "Update Contact" : "Add Contact"}</button>
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        style={{ marginTop: "10px" }}
+      >
+        {formData.id ? "Update Contact" : "Add Contact"}
+      </Button>
     </form>
   );
 };

@@ -1,37 +1,31 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { List, ListItem, ListItemText, IconButton } from "@mui/material";
+import { Edit, Delete } from "@mui/icons-material";
 
-const ContactList = ({ onEdit }) => {
-  const [contacts, setContacts] = useState([]);
-
-  // Fetch contacts from the backend
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/contacts')
-      .then(response => setContacts(response.data))
-      .catch(error => console.error('Error fetching contacts:', error));
-  }, []);
-
-  // Delete a contact
-  const handleDelete = (id) => {
-    axios.delete(`http://localhost:5000/api/contacts/${id}`)
-      .then(() => setContacts(contacts.filter(contact => contact.id !== id)))
-      .catch(error => console.error('Error deleting contact:', error));
-  };
-
+const ContactList = ({ contacts, onEdit, onDelete }) => {
   return (
-    <div>
-      <h2>Contact List</h2>
-      <ul>
-        {contacts.map(contact => (
-          <li key={contact.id}>
-            {contact.first_name} {contact.last_name} - {contact.email} - {contact.phone}
-            <button onClick={() => onEdit(contact)}>Edit</button>
-            <button onClick={() => handleDelete(contact.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <List>
+      {contacts.map((contact) => (
+        <ListItem key={contact.id} divider>
+          <ListItemText
+            primary={`${contact.first_name} ${contact.last_name}`}
+            secondary={`${contact.email} | ${contact.phone}`}
+          />
+          <IconButton
+            color="primary"
+            onClick={() => onEdit(contact)}
+          >
+            <Edit />
+          </IconButton>
+          <IconButton
+            color="secondary"
+            onClick={() => onDelete(contact.id)}
+          >
+            <Delete />
+          </IconButton>
+        </ListItem>
+      ))}
+    </List>
   );
 };
 
